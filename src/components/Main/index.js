@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Main({onEditProfile, onEditPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar}) {
     
 
     return (
@@ -22,7 +22,7 @@ function Main({onEditProfile, onEditPlace, onEditAvatar}) {
                 </div>
                 <button type="button" aria-label="кнопка открытия попапа добавления карточки" 
                     className="profile__add-button"
-                    onClick={onEditPlace}
+                    onClick={onAddPlace}
                     >
                 </button>
             </section>

@@ -4,11 +4,6 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 
-import ProfilePopup from "./ProfilePopup";
-import PlacePopup from "./PlacePopup";
-import PhotoPopup from "./PhotoPopup";
-import AvatarPopup from "./AvatarPopup";
-import DeleteCardPopup from "./DeleteCardPopup";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
@@ -36,18 +31,38 @@ function App() {
   return (
     <div className='wrapper'>
       <div className="content">
+
         <Header />
+
         <Main
-          onEditProfile={() => handleEditProfileClick}
-          onAddPlace={() => handleAddPlaceClick}
-          onEditAvatar={() => handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
         />
+
         <Footer />
-        <ProfilePopup />
-        <PlacePopup />
-        <PhotoPopup />
-        <AvatarPopup />
-        <DeleteCardPopup />
+
+        <PopupWithForm
+          name='avatar' 
+          isOpen={isEditAvatarPopupOpen}
+          title='Обновить аватар'
+          buttonText='Сохранить'
+          placeholder='Ссылка на аватар'
+        />
+
+        <PopupWithForm 
+          name='profile'
+          isOpen={isEditProfilePopupOpen}
+          title='Редактировать профиль'
+          buttonText='Сохранить'
+        />
+
+        <PopupWithForm 
+          name='add-card'
+          isOpen={isAddPlacePopupOpen}
+          title='Новое место'
+          buttonText='Сохранить'
+        />
       </div>
     </div>
   );
