@@ -22,7 +22,7 @@ function App() {
     // document.querySelector('.popup_type_profile').classList.add('popup_opened');
     setEditProfilePopupVisible(true);
   }
-  
+  // 
   function handleAddPlaceClick() {
     // document.querySelector('.popup_type_add-card').classList.add('popup_opened');
     setAddPlacePopupVisible(true);
