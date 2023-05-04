@@ -1,7 +1,8 @@
 import React from 'react';
 import { api } from '../../utils/api';
+import Card from '../Card';
 
-function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     
     const [userName, setUserName] = React.useState('');
     const [userDescription, setUserDescription] = React.useState('');
@@ -36,7 +37,6 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                             backgroundSize: 'cover'
                      }}
                     >
-                        {/* <div src="#" alt="фото пользователя" className="profile__avatar" style={{ backgroundImage: `url(${userAvatar})` }}></div> */}
                     </button>
                     <h1 className="profile__name">{userName}</h1>
                     <p className="profile__description">{userDescription}</p>
@@ -54,18 +54,8 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
             </section>
             <section className="elements"> 
                 {cards.map((card, i) => (
-                    <article className="card" key={card._id}>                   
-                        <button type="button" aria-label="кнопка удаления карточки" className="card__delete-button"></button>
-                        <img src={card.link} alt={card.name} className="card__photo" />
-                        <div className="card__description">
-                            <h3 className="card__title">{card.name}</h3>
-                            <div className="card__likes-section">
-                                <button type="button" aria-label="кнопка переключения лайка" className="card__like"></button>
-                                <span className="card__likes-counter">{card.likes.length}</span>
-                            </div>
-                        </div>
-                    </article>
-                ))}              
+                    <Card data={card} key={card._id} onCardClick={onCardClick}/>
+                ))}
             </section>
         </main>
     );

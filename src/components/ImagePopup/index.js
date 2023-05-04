@@ -1,12 +1,14 @@
 import React from "react";
 
-function ImagePopup() {
+function ImagePopup({card, onClose}) {
     return(
-        <div className="popup popup_type_fullscreen">
+        <div className={`popup popup_type_fullscreen ${card ? "popup_opened" : "" }`}>
             <article className="popup__fullsceen-container">
-                <img src="#" alt="" className="popup__fullscreen-image" />
-                <h3 className="popup__fullscreen-title"></h3>
-                <button type="button" aria-label="закрыть фуллскрин фото" className="popup__close-icon popup__close-icon_type_fullscreen"></button>
+                <img src={card?.link} alt="" className="popup__fullscreen-image"/>
+                <h3 className="popup__fullscreen-title">{card?.name}</h3>
+                <button type="button" aria-label="закрыть фуллскрин фото" className="popup__close-icon popup__close-icon_type_fullscreen"
+                    onClick={onClose}
+                />
             </article>
         </div>
     )

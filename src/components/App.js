@@ -3,6 +3,7 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+// import Card from "./Card";
 
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
@@ -14,6 +15,11 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupVisible] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupVisible] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopupVisible] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState();
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
 
   function handleEditProfileClick() {
     // document.querySelector('.popup_type_profile').classList.add('popup_opened');
@@ -34,6 +40,7 @@ function App() {
     setEditProfilePopupVisible(false);
     setAddPlacePopupVisible(false);
     setAvatarPopupVisible(false);
+    setSelectedCard();
   }
 
   return (
@@ -46,6 +53,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
 
         <Footer />
@@ -115,6 +123,11 @@ function App() {
             className="popup__error"
           />
         </PopupWithForm>
+        <ImagePopup 
+          card={selectedCard}
+          onClose={closeAllPopups}
+          // isOpen={}
+        />
       </div>
     </div>
   );
