@@ -85,7 +85,8 @@ function App() {
           onClose={closeAllPopups}
         > 
           <input 
-            name='name'
+            name="name"
+            placeholder="имя"
             className="popup__input"
           />
           <span 
@@ -93,6 +94,7 @@ function App() {
           />
           <input 
             name="about"
+            placeholder="О себе"
             className="popup__input"
           />
           <span 
@@ -110,6 +112,7 @@ function App() {
         >
           <input 
             name="title"
+            placeholder="Название"
             className="popup__input"
           />
           <span 
@@ -117,6 +120,7 @@ function App() {
           />
           <input 
             name="link"
+            placeholder="Ссылка на картинку"
             className="popup__input"
           />
           <span 
