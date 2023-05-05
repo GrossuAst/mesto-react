@@ -3,12 +3,8 @@ import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-// import Card from "./Card";
-
-import PopupWithForm from "./PopupWithForm";
+import PopupWithForm from "./PupupWithForm";
 import ImagePopup from "./ImagePopup";
-
-// const css = {marginTop: '50px'}
 
 function App() {
 
