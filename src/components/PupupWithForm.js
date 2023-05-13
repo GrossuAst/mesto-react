@@ -8,7 +8,7 @@ function PopupWithForm(props) {
                     <button type="button" aria-label="#" className="popup__close-icon" onClick={props.onClose}></button>
                     <h2 className="popup__title">{props.title}</h2>
                     <div className="popup__inputs">
-                        {props.children} 
+                        {props.children}
                     </div>                                    
                     <button type="submit" className="popup__submit-button">{props.buttonText}</button>
                 </form>

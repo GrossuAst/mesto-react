@@ -1,34 +1,34 @@
 import React from 'react';
-import { CurrentUserContext, currentUser } from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { api } from '../utils/api';
 import Card from './Card';
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick}) {
 
     // подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
-    console.log(currentUser)
+    // console.log(currentUser)
     
     // const [userName, setUserName] = React.useState('');
     // const [userDescription, setUserDescription] = React.useState('');
     // const [userAvatar, setUserAvatar] = React.useState('');
-    // const [cards, setCardsArray] = React.useState([]);
+    const [cards, setCardsArray] = React.useState([]);
 
-//     React.useEffect(() => {
-//         Promise.all([api.getInfoAboutUser(), api.getInitialCards()])
-//         .then(([userInfo, cards]) => {
-//         setUserName(userInfo.name)
-//         setUserDescription(userInfo.about)
-//         setUserAvatar(userInfo.avatar)
-//         setCardsArray(cards)
-//         // console.log(userInfo)
-//         // console.log(cards)
-//     },
-//   )
-//   .catch((err) => {
-//     console.log(`ошибка ${err}`);
-//   })
-//     }, [])
+    React.useEffect(() => {
+        Promise.all([api.getInfoAboutUser(), api.getInitialCards()])
+        .then(([userInfo, cards]) => {
+        // setUserName(userInfo.name)
+        // setUserDescription(userInfo.about)
+        // setUserAvatar(userInfo.avatar)
+        setCardsArray(cards)
+        // console.log(userInfo)
+        // console.log(cards)
+    },
+  )
+  .catch((err) => {
+    console.log(`ошибка ${err}`);
+  })
+    }, [])
     
 
     return (
@@ -58,9 +58,9 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
                 </button>
             </section>
             <section className="elements"> 
-                {/* {cards.map((card, i) => (
-                    <Card data={card} key={card._id} onCardClick={onCardClick}/>
-                ))} */}
+                {cards.map((card, i) => (
+                    <Card data={card} key={card._id} onCardClick={onCardClick} onDeleteButtonClick={onDeleteButtonClick}/>
+                ))}
             </section>
         </main>
     );
