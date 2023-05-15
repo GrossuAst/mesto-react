@@ -6,6 +6,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PupupWithForm";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
 
 // апи
 import { api } from "../utils/api";
@@ -30,13 +31,22 @@ function App() {
     .then(([userInfo, cards]) => {
       setCurrentUser(userInfo);
       setCardsArray(cards);
-      console.log(cards)
-      console.log(userInfo)
+      // console.log(cards)
+      // console.log(userInfo)
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
     })
-  }, [])
+  }, []);
+
+  function handleUpdateUser(currentUser) {
+    api.editProfileInfo(currentUser)
+    .then((res) => {
+      console.log(res);
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+  }
 
   // попап удаления карточки
   // function handleDeleteCardClick() {
@@ -130,30 +140,11 @@ function App() {
           </PopupWithForm>
 
           {/* попап формы профиля */}
-          <PopupWithForm 
-            name='profile'
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
-            title='Редактировать профиль'
-            buttonText='Сохранить'
             onClose={closeAllPopups}
-          > 
-            <input 
-              name="name"
-              placeholder="Имя"
-              className="popup__input"
-            />
-            <span 
-              className="popup__error"
-            />
-            <input 
-              name="about"
-              placeholder="О себе"
-              className="popup__input"
-            />
-            <span 
-              className="popup__error"
-            />
-          </PopupWithForm>
+            onUpdateUser={handleUpdateUser}
+          />
 
           {/* попап формы добавления карточки */}
           <PopupWithForm 
