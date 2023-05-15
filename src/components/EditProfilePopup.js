@@ -16,12 +16,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
 
     function handleNameChange(evt) {
         setName(evt.target.value);
-        // console.log(name)
     }
 
     function handleDescriptionChange(evt) {
         setDescription(evt.target.value)
-        // console.log(description)
     }
 
     function handleSubmit(evt) {
