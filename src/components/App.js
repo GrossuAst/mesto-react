@@ -39,8 +39,18 @@ function App() {
   }, [])
 
   // попап удаления карточки
-  function handleDeleteCardClick() {
-    setDeleteCardPopupVisible(true);
+  // function handleDeleteCardClick() {
+  //   setDeleteCardPopupVisible(true);
+  // }
+
+  // функция удаления карточки
+  function handleCardDelete(card) {
+    console.log(cards)
+    api.deleteCard(card._id)
+    .then(() => {
+      const cardToDelete = card;
+      setCardsArray(cards.filter((card) => card !== cardToDelete))
+    })
   }
 
   // открытие карточки в фуллскрин
@@ -95,8 +105,9 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
-            onDeleteButtonClick={handleDeleteCardClick}
+            // onDeleteButtonClick={handleDeleteCardClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
           <Footer />

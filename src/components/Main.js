@@ -3,7 +3,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 // import { api } from '../utils/api';
 import Card from './Card';
 
-function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike}) {
+function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete}) {
 
     // подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
@@ -34,11 +34,13 @@ function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDe
                     >
                 </button>
             </section>
-            <section className="elements"> 
-                {cards.map((card, i) => (
-                    <Card card={card} key={card._id} onCardClick={onCardClick} onDeleteButtonClick={onDeleteButtonClick} 
+            <section className="elements">
+                {cards.map((card) => (
+                    <Card card={card} key={card._id} 
+                    onCardClick={onCardClick} 
+                    onDeleteButtonClick={onDeleteButtonClick} 
                     onCardLike={onCardLike}
-                    
+                    onCardDelete={onCardDelete}
                     />
                 ))}
             </section>
