@@ -23,35 +23,57 @@ function App() {
 
   const [currentUser, setCurrentUser] = React.useState({});
 
-  React.useEffect(() => {
-    api.getInfoAboutUser()
-    .then((res) => {
-      setCurrentUser(res);
-      // console.log(res);
-      // console.log(currentUser);
-    })
-  }, []);
+  const [cards, setCardsArray] = React.useState([]);
 
+  React.useEffect(() => {
+    Promise.all([api.getInfoAboutUser(), api.getInitialCards()])
+    .then(([userInfo, cards]) => {
+      setCurrentUser(userInfo);
+      setCardsArray(cards);
+      console.log(cards)
+      console.log(userInfo)
+    })
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
+    })
+  }, [])
+
+  // попап удаления карточки
   function handleDeleteCardClick() {
     setDeleteCardPopupVisible(true);
   }
 
+  // открытие карточки в фуллскрин
   function handleCardClick(card) {
     setSelectedCard(card);
   }
 
+  // попап формы профиля
   function handleEditProfileClick() {
     setEditProfilePopupVisible(true);
   }
 
+  // попап формы добавления карточки
   function handleAddPlaceClick() {
     setAddPlacePopupVisible(true);
   }
   
+  // попап формы аватарки
   function handleEditAvatarClick() {
     setAvatarPopupVisible(true);
   }
 
+  // функция переключения лайка
+  function handleCardLike(card) {
+    // console.log(card)
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked)
+    .then((newCard) => {
+      setCardsArray((state) => state.map((c) => c._id === card._id ? newCard : c));
+  });
+  }
+
+  // закрытие всех попапов
   function closeAllPopups() {
     setEditProfilePopupVisible(false);
     setAddPlacePopupVisible(false);
@@ -68,11 +90,13 @@ function App() {
           <Header />
 
           <Main
+            cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             onDeleteButtonClick={handleDeleteCardClick}
+            onCardLike={handleCardLike}
           />
 
           <Footer />

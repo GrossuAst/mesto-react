@@ -96,6 +96,15 @@ export class Api {
         .then(this._checkResponse)
     }
 
+    // переключение лайка
+    changeLikeCardStatus(cardId, isLiked) {
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
+            method: isLiked ? 'DELETE' : 'PUT',
+            headers: this._headers
+        })
+        .then(this._checkResponse)
+    }
+
 }
 
 // const apiConfig = {

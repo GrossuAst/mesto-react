@@ -1,36 +1,13 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { api } from '../utils/api';
+// import { api } from '../utils/api';
 import Card from './Card';
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick}) {
+function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike}) {
 
     // подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
-    // console.log(currentUser)
     
-    // const [userName, setUserName] = React.useState('');
-    // const [userDescription, setUserDescription] = React.useState('');
-    // const [userAvatar, setUserAvatar] = React.useState('');
-    const [cards, setCardsArray] = React.useState([]);
-
-    React.useEffect(() => {
-        Promise.all([api.getInfoAboutUser(), api.getInitialCards()])
-        .then(([userInfo, cards]) => {
-        // setUserName(userInfo.name)
-        // setUserDescription(userInfo.about)
-        // setUserAvatar(userInfo.avatar)
-        setCardsArray(cards)
-        // console.log(userInfo)
-        // console.log(cards)
-    },
-  )
-  .catch((err) => {
-    console.log(`ошибка ${err}`);
-  })
-    }, [])
-    
-
     return (
         <main className="main">
             <section className="profile">
@@ -59,7 +36,10 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteBut
             </section>
             <section className="elements"> 
                 {cards.map((card, i) => (
-                    <Card data={card} key={card._id} onCardClick={onCardClick} onDeleteButtonClick={onDeleteButtonClick}/>
+                    <Card card={card} key={card._id} onCardClick={onCardClick} onDeleteButtonClick={onDeleteButtonClick} 
+                    onCardLike={onCardLike}
+                    
+                    />
                 ))}
             </section>
         </main>
