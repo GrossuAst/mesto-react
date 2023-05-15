@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import PopupWithForm from "./PupupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 // апи
 import { api } from "../utils/api";
@@ -39,12 +40,27 @@ function App() {
     })
   }, []);
 
+  //обновление данных профиля 
   function handleUpdateUser(currentUser) {
     api.editProfileInfo(currentUser)
     .then((res) => {
-      console.log(res);
       setCurrentUser(res);
       closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
+    })
+  }
+
+  // обновление аватара
+  function handleUpdateAvatar(avatarUrl) {
+    api.editAvatar(avatarUrl)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
     })
   }
 
@@ -60,6 +76,9 @@ function App() {
     .then(() => {
       const cardToDelete = card;
       setCardsArray(cards.filter((card) => card !== cardToDelete))
+    })
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
     })
   }
 
@@ -90,7 +109,10 @@ function App() {
     api.changeLikeCardStatus(card._id, isLiked)
     .then((newCard) => {
       setCardsArray((state) => state.map((c) => c._id === card._id ? newCard : c));
-  });
+  })
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
+    })
   }
 
   // закрытие всех попапов
@@ -123,21 +145,11 @@ function App() {
           <Footer />
 
           {/* попап аватарки */}
-          <PopupWithForm
-            name='avatar' 
+          <EditAvatarPopup 
             isOpen={isEditAvatarPopupOpen}
-            title='Обновить аватар'
-            buttonText='Сохранить'
             onClose={closeAllPopups}
-          > 
-            <input
-              className="popup__input"
-              placeholder='Ссылка на аватар'
-            />
-            <span 
-              className="popup__error"
-            />
-          </PopupWithForm>
+            onUpdateAvatar={handleUpdateAvatar}
+          />
 
           {/* попап формы профиля */}
           <EditProfilePopup

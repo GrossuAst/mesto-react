@@ -45,12 +45,12 @@ export class Api {
     }
 
     // метод для отрисовки аватарки
-    editAvatar(urlAvatar) {
+    editAvatar(avatarUrl) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-            avatar: urlAvatar.avatar
+            avatar: avatarUrl
         })},
         )
             .then(this._checkResponse)
