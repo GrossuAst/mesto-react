@@ -8,6 +8,7 @@ import PopupWithForm from "./PupupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 // апи
 import { api } from "../utils/api";
@@ -27,13 +28,12 @@ function App() {
 
   const [cards, setCardsArray] = React.useState([]);
 
+  // рендер данных при открытии страницы
   React.useEffect(() => {
     Promise.all([api.getInfoAboutUser(), api.getInitialCards()])
     .then(([userInfo, cards]) => {
       setCurrentUser(userInfo);
       setCardsArray(cards);
-      // console.log(cards)
-      // console.log(userInfo)
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
@@ -57,6 +57,18 @@ function App() {
     api.editAvatar(avatarUrl)
     .then((res) => {
       setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(`ошибка ${err}`);
+    })
+  }
+
+  // добавление карточки
+  function handleAddPlaceSubmit(card) {
+    api.sendCard(card)
+    .then((res) => {
+      setCardsArray([res, ...cards]);
       closeAllPopups();
     })
     .catch((err) => {
@@ -159,7 +171,13 @@ function App() {
           />
 
           {/* попап формы добавления карточки */}
-          <PopupWithForm 
+          <AddPlacePopup 
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
+
+          {/* <PopupWithForm 
             name='add-card'
             isOpen={isAddPlacePopupOpen}
             title='Новое место'
@@ -182,7 +200,7 @@ function App() {
             <span 
               className="popup__error"
             />
-          </PopupWithForm>
+          </PopupWithForm> */}
 
           <ImagePopup 
             card={selectedCard}
