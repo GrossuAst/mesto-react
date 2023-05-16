@@ -31,6 +31,8 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
               name="title"
               placeholder="Название"
               className="popup__input"
+              type='text'
+              required minLength={2} maxLength={30}
               ref={titleRef}
             />
             <span 
@@ -40,6 +42,8 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
               name="link"
               placeholder="Ссылка на картинку"
               className="popup__input"
+              type='url'
+              required
               ref={linkRef}
             />
             <span 
