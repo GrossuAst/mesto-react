@@ -142,7 +142,7 @@ function App() {
         <div className="content">
 
           <Header />
-
+          <p>lorem</p>
           <Main
             cards={cards}
             onEditProfile={handleEditProfileClick}
